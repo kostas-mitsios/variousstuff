@@ -35,6 +35,6 @@ for filename in os.listdir(folder_path):
 
 df = pd.DataFrame(data, columns=["Filename", "Date added", "Column", "Amount"])
 
-#add dataframe to excel file - output.xlsx
+#add dataframe to excel output file
 with pd.ExcelWriter(excel_file, mode='w') as writer:
     df.to_excel(writer, index=False, sheet_name="Data")
