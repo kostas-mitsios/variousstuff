@@ -27,7 +27,7 @@ def select_file():
 def load_power_queries(file_path):
     try:
         excel = win32.Dispatch("Excel.Application")
-        excel.Visible = False  # Keep Excel hidden in the background
+        excel.Visible = True  # Keep Excel hidden in the background
         workbook = excel.Workbooks.Open(file_path)
 
         # Retrieve Power Queries
@@ -36,11 +36,23 @@ def load_power_queries(file_path):
             print("Power Queries found in the workbook:")
             for query in queries:
                 print(f" - {query.Name}")
+                break
         else:
             print("No Power Queries found in this workbook.")
+        
+        #connection = wb.Connections.Item("IndividualsEnrolled")
+        #print(connection.Name)
+        query.Refresh()
+
+        time.sleep(20)
+
+        workbook.Save()
+        workbook.Close()
+        excel.Quit()
+    
 
         #load_and_refresh_specific_query(file_path, "IndividualsEnrolled")
-        load_and_refresh_specific_connection(file_path, "Query - IndividualsEnrolled")
+        #load_and_refresh_specific_connection(file_path, "Query - IndividualsEnrolled")
         #workbook.Close(SaveChanges=False)
         #excel.Quit()
         #full name in VBA is "Query - IndividualsEnrolled"
@@ -52,6 +64,7 @@ def load_power_queries(file_path):
         wb.Save()
         xlapp.Quit()
         """""
+        print("done!")
 
     except Exception as e:
         print(f"Error loading Power Queries: {e}")
